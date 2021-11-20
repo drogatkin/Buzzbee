@@ -75,15 +75,15 @@ public class NotifServStub extends MicroService<NotifServStub> {
 	}
 
 	@Override
-	public void destroy() {
+	public NotifServStub destroy() {
 		// TODO Auto-generated method stub
-		
+		return this;
 	}
 
 	@Override
-	public void start() {
+	public NotifServStub start() {
 		// TODO Auto-generated method stub
-		
+		return this;
 	}
 	
 }

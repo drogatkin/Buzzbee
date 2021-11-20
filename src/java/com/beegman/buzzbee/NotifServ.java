@@ -301,13 +301,15 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	}
 
 	@Override
-	public void destroy() {
+	public NotifServ destroy() {
 		executor.shutdownNow();
+		return this;
 	}
 
 	@Override
-	public synchronized void start() {
+	public synchronized NotifServ start() {
 		init();
+		return this;
 	}
 
 	private void init() {

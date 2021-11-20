@@ -86,14 +86,14 @@ public class NotificationForwarder extends MicroService<NotificationForwarder> {
 	}
 
 	@Override
-	public void destroy() {
+	public NotificationForwarder destroy() {
 		// TODO Auto-generated method stub
-		
+		return this;
 	}
 
 	@Override
-	public void start() {
+	public NotificationForwarder start() {
 		// TODO Auto-generated method stub
-		
+		return this;
 	}
 }
