@@ -6,8 +6,8 @@ var MSWNA = (function() {
       var ws_url
       var serv
       function setup() {
-         console.log('connecting to '+ws_url+'/notif/gen/'+serv)
-         wskt = new WebSocket(ws_url+'/notif/gen/'+serv)
+         console.log('connecting to '+ws_url+'/notif/web/'+serv)
+         wskt = new WebSocket(ws_url+'/notif/web/'+serv)
          wskt.onopen = function(d) {
              notifRecon = 500
          }

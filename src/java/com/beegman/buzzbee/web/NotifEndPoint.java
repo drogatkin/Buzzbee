@@ -33,7 +33,7 @@ public class NotifEndPoint implements Subscriber {
 	protected UserAuth userAuth;
 	
 	@Inject
-	NotifServ ns;
+	protected NotifServ ns;
 
 	@OnMessage
 	public void subscribe(String id, Session s, @PathParam("servName") String servName) {
@@ -107,7 +107,7 @@ public class NotifEndPoint implements Subscriber {
 			// TODO use JSON serialization
 			String result =
 			"{\"func\":\"" + arg0.action + "\", \"params\":" + Arrays.toString(arg0.attributes) + "}";
-			log.debug("JSON:%s", result);
+			LogImpl.log.debug("JSON:%s", result);
 			return result;
 		}
 	}
