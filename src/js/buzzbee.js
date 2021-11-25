@@ -1,4 +1,4 @@
-var MSWNA = (function() {
+var WSAPI = (function() {
       var wskt
       var handlers = {}
       var notifRecon = 0
