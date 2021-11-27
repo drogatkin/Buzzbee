@@ -17,6 +17,8 @@ var WSAPI = (function() {
              if (!hs) {
                if(window[note.func] && window[note.func] instanceof Function)
                  window[note.func].apply(this, note.params || [])
+               else
+                  console.log('function '+note.func+" doesn't exist or not function'")
              } else if (hs){
             for(var h in hs) {
 				if(hs.hasOwnProperty(h)){

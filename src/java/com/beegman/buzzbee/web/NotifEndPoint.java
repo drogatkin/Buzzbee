@@ -25,19 +25,19 @@ import com.beegman.buzzbee.Subscriber;
 import com.beegman.buzzbee.UserAuth;
 import com.beegman.buzzbee.WebEvent;
 
-@ServerEndpoint(value = "/notif/web/{servName}", encoders = NotifEndPoint.WebEventEncoder.class)
+//@ServerEndpoint(value = "/notif/web/{servName}", encoders = NotifEndPoint.WebEventEncoder.class)
 public class NotifEndPoint implements Subscriber {
+	
 	protected Session ses;
 	protected LinkedList<String> notifIds = new LinkedList<>();
 
 	protected UserAuth userAuth;
 	
-	@Inject
 	protected NotifServ ns;
 
 	@OnMessage
 	public void subscribe(String id, Session s, @PathParam("servName") String servName) {
-		LogImpl.log.debug("got message %s for %s from %s", id, servName, s.getPathParameters());
+		LogImpl.log.debug("got message %s for %s from %s and notifserv %s", id, servName, s.getPathParameters(), ns);
 		ses = s;
 		
 		if (ns != null)
@@ -50,6 +50,8 @@ public class NotifEndPoint implements Subscriber {
 			} catch (NotifException e) {
 				LogImpl.log.error(e, "");
 			}
+		else
+			LogImpl.log.error(new NullPointerException("No notif server set"), "");
 	}
 
 	@OnClose

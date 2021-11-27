@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -52,7 +53,6 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 
 	@Override
 	public NotifServ init(Properties props, Object arg1) {
-		//super.init(props, arg1);
 		properties = props;
 		int maxAge = 20;
 		try {
@@ -64,6 +64,8 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 		new AbandonedTopicsCleaner(maxAge) {
 			
 		};
+		if (arg1 instanceof Registry)
+			registry = (Registry)arg1;
 		String forstr = props == null ? null : props.getProperty("FORWARDERS");
 		if (forstr == null || forstr.isEmpty())
 			return this;
@@ -104,7 +106,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 			if (retainQ != null && retainQ.isEmpty() == false)
 				executor.submit(new NotificationTask(retainQ, subscriber));
 		}
-		LogImpl.log.debug("Added sub %s for %s", subscriber, resourceId);
+		//LogImpl.log.debug("Added sub %s for %s", subscriber, resourceId);
 	}
 
 	/**
@@ -155,13 +157,17 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	 */
 	@Override
 	public void publish(WebEvent event) throws NotifException {
+		//LogImpl.log.debug("publishing: %s at "+event, event);
 		if (forwarders != null)
 			forwarders.forEach(f -> f.forward(event));
 		publishNoForward(event);
 	}
 
 	public void publishNoForward(WebEvent event) throws NotifException {
-		executor.submit(new NotificationTask(event));
+		//LogImpl.log.debug("no forward publishing: %s", event);
+		NotificationTask nt;
+		Future  notifFuture = executor.submit(nt = new NotificationTask(event));
+		nt.run();
 		ConcurrentLinkedDeque<Note> retainQ = reQueue.get(event.resourceId);
 		if (retainQ != null && retainQ.isEmpty() == false)
 			retainQ.add(event);
@@ -177,7 +183,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 		// TODO get org/role pairs from subscriber and forward
 		if (forwarders != null)
 			forwarders.forEach(f -> f.forward(event));
-		executor.submit(new NotificationTask(event, subscriber));
+		Future  notifFuture = executor.submit(new NotificationTask(event, subscriber));
 	}
 	
 	//public void publishTo(WebEvent event, Subscriber subscriber) {
@@ -303,6 +309,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	@Override
 	public NotifServ destroy() {
 		executor.shutdownNow();
+		//LogImpl.log.debug("executor stopped");
 		return this;
 	}
 
@@ -327,6 +334,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 					}
 				});
 		reQueue = new LinkedHashMap<>();
+		//LogImpl.log.debug("executor started");
 	}
 
 	int getConfigInt(String name, int def) {
@@ -341,6 +349,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	LinkedHashSet<Subscriber> getSubscribers(String resourceId) {
 		synchronized (subscribers) {
 			StampedHashSet<Subscriber> ls = subscribers.get(resourceId);
+			//LogImpl.log.debug("Subscribers for %s -> %s", ls, resourceId);
 			if (ls == null) {
 				ls = new StampedHashSet<Subscriber>();
 				 subscribers.put(resourceId, ls); // TODO check other possible adding 
@@ -383,24 +392,29 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 				notes.forEach(n -> {if (isEligable(noEcho, (WebEvent)n)) noEcho.notify((WebEvent)n);});
 				return;
 			}
-			LogImpl.log.debug("Executing notif for %s to %d", note.getResourceId(),
-					subscribers.get(note.getResourceId()).size());
 			// TODO synchronize all work around subscriber list
 			LinkedHashSet<Subscriber> subscribers = (LinkedHashSet<Subscriber>) getSubscribers(note.getResourceId())
 					.clone();
+			//LogImpl.log.debug("Executing notif for %s to %d", note.getResourceId(),
+				//	subscribers.size());
 			ArrayList<Subscriber> deads = new ArrayList<>();
 			subscribers.forEach(s -> {
+				//LogImpl.log.debug("subscribg %s at %s", s, noEcho);
 				if (s == noEcho)
 					return;
 				if (s.isAlive())
 					try {
-						if (isEligable(s, note)) // TODO think if the check can be performed in notify()
+						if (isEligable(s, note)) { // TODO think if the check can be performed in notify()
+							//LogImpl.log.debug("Notifying %s at %s", s, note);
 							s.notify(note); 
+						}
 					} catch (Exception e) {
 						LogImpl.log.error(e, "notifying %s for %s", note, note.getResourceId());
 					}
-				else
+				else {
+					LogImpl.log.debug("Dead %s", s);
 					deads.add(s);
+				}
 			});
 			final LinkedHashSet<Subscriber> subscribers2 = getSubscribers(note.getResourceId());
 
