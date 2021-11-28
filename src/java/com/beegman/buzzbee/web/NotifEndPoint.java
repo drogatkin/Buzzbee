@@ -14,7 +14,6 @@ import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 
 import org.aldan3.annot.Inject;
 
@@ -33,6 +32,7 @@ public class NotifEndPoint implements Subscriber {
 
 	protected UserAuth userAuth;
 	
+	@Inject
 	protected NotifServ ns;
 
 	@OnMessage
@@ -45,7 +45,7 @@ public class NotifEndPoint implements Subscriber {
 				if (!notifIds.contains(id)) {
 					ns.subscribe(id, this);
 					notifIds.add(id);
-					LogImpl.log.debug("Subscribed to %s", id);
+					//LogImpl.log.debug("Subscribed to %s", id);
 				}
 			} catch (NotifException e) {
 				LogImpl.log.error(e, "");
@@ -74,7 +74,7 @@ public class NotifEndPoint implements Subscriber {
 	public void notify(WebEvent event) {
 		if (ses != null)
 			try {
-				LogImpl.log.debug("Sending %s", event);
+				//LogImpl.log.debug("Sending %s", event);
 				ses.getBasicRemote().sendObject(event);
 			} catch (Exception e) {				
 				LogImpl.log.error(e, "");
@@ -109,7 +109,7 @@ public class NotifEndPoint implements Subscriber {
 			// TODO use JSON serialization
 			String result =
 			"{\"func\":\"" + arg0.action + "\", \"params\":" + Arrays.toString(arg0.attributes) + "}";
-			LogImpl.log.debug("JSON:%s", result);
+			//LogImpl.log.debug("JSON:%s", result);
 			return result;
 		}
 	}
