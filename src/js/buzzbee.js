@@ -5,11 +5,14 @@ var WSAPI = (function() {
       var maxReconn = 16 * 1000
       var ws_url
       var serv
+      var onopen_cf
       function setup() {
          console.log('connecting to '+ws_url+'/notif/web/'+serv)
          wskt = new WebSocket(ws_url+'/notif/web/'+serv)
          wskt.onopen = function(d) {
              notifRecon = 500
+             if (typeof onopen_cf === 'function')
+                 onopen_cf()
          }
          wskt.onmessage = function(e) {
             var note = JSON.parse(e.data)
@@ -97,18 +100,20 @@ var WSAPI = (function() {
          * @param {function} h - a handler function for this event name
          */
         addListener:function(en,h) {
-           var hs = handlers[en];
+           var hs = handlers[en]
            if (!hs) {
              hs = []
              handlers[en] = hs
           }
           hs.push(h)            
         }    ,
-        init: function(host,srv) {
+        init: function(host,srv,onop) {
         	if (!host || typeof(WebSocket) !== "function")
-        		return;
+        		return
             ws_url=host
             serv=srv || ""
+			if (onop && typeof onop === 'function')
+			 	onopen_cf = onop
            //console.log('got: '+host+' and set '+ws_url);
             setup()   
         }     ,
