@@ -6,7 +6,7 @@
  */
 package com.beegman.buzzbee;
 
-import com.beegman.buzzbee.NotifServ.NotifException;
+import com.beegman.buzzbee.NotificationServiceImpl.NotifException;
 
 public interface NotificationService {
 	/**

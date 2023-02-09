@@ -39,7 +39,7 @@ var WSAPI = (function() {
               notifRecon = 500
             notifRecon *= 2
             if (notifRecon > maxReconn)
-              notifRecon= maxReconn;
+              notifRecon= maxReconn
             if (console && console.log)
 	            console.log('Oops '+e + ' reconnecting in '+notifRecon+'ms')
             setTimeout(setup, notifRecon)
@@ -51,9 +51,12 @@ var WSAPI = (function() {
        /** this call is used to subscribe on certain events by id
         * @param {string} id - id of event, id can include distribution channel name
         */
-        subscribe: function(id) {
+        subscribe: function(id, altPayload) {
           if (wskt && wskt.readyState===WebSocket.OPEN)
-            wskt.send(JSON.stringify({op:'subscribe', id:id}))
+            if (altPayload)
+                wskt.send(altPayload)
+            else
+               wskt.send(JSON.stringify({op:'subscribe', id:id}))
         }   ,
      /** this call is used to unsubscribe on certain events by id
       * @param {string} id - id of event

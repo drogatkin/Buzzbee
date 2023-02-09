@@ -18,8 +18,8 @@ import javax.websocket.server.PathParam;
 import org.aldan3.annot.Inject;
 
 import com.beegman.buzzbee.LogImpl;
-import com.beegman.buzzbee.NotifServ;
-import com.beegman.buzzbee.NotifServ.NotifException;
+import com.beegman.buzzbee.NotificationServiceImpl;
+import com.beegman.buzzbee.NotificationServiceImpl.NotifException;
 import com.beegman.buzzbee.Subscriber;
 import com.beegman.buzzbee.UserAuth;
 import com.beegman.buzzbee.WebEvent;
@@ -33,7 +33,7 @@ public class NotifEndPoint implements Subscriber {
 	protected UserAuth userAuth;
 	
 	@Inject
-	protected NotifServ ns;
+	protected NotificationServiceImpl ns;
 
 	@OnMessage
 	public void subscribe(String id, Session s, @PathParam("servName") String servName) {
@@ -94,13 +94,13 @@ public class NotifEndPoint implements Subscriber {
 
 		@Override
 		public void destroy() {
-			// TODO Auto-generated method stub
+			// some actions on destroying
 
 		}
 
 		@Override
 		public void init(EndpointConfig arg0) {
-			// TODO Auto-generated method stub
+			// some actions on initializing
 
 		}
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright D. Rogatkin 2017-2021
+ *  Copyright D. Rogatkin 2017-2023
  */
 /**
  * notification service
@@ -28,7 +28,7 @@ import org.aldan3.app.Registry;
  * @author Dmitriy
  *
  */
-public class NotifServ extends MicroService<NotifServ> implements NotificationService {
+public class NotificationServiceImpl extends MicroService<NotificationServiceImpl> implements NotificationService {
 	@Inject
 	Registry registry;
 	
@@ -52,7 +52,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	protected HashSet<NotificationForwarder> forwarders;
 
 	@Override
-	public NotifServ init(Properties props, Object arg1) {
+	public NotificationServiceImpl init(Properties props, Object arg1) {
 		properties = props;
 		int maxAge = 20;
 		try {
@@ -307,14 +307,14 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	}
 
 	@Override
-	public NotifServ destroy() {
+	public NotificationServiceImpl destroy() {
 		executor.shutdownNow();
 		//LogImpl.log.debug("executor stopped");
 		return this;
 	}
 
 	@Override
-	public synchronized NotifServ start() {
+	public synchronized NotificationServiceImpl start() {
 		init();
 		return this;
 	}
@@ -548,7 +548,7 @@ public class NotifServ extends MicroService<NotifServ> implements NotificationSe
 	}
 
 	@Override
-	public NotifServ getServiceProvider() {
+	public NotificationServiceImpl getServiceProvider() {
 		
 		return this;
 	}
