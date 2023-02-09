@@ -1,5 +1,5 @@
 /*
- *  Copyright D. Rogatkin 2017-2021
+ *  Copyright D. Rogatkin 2017-2023
  */
 package com.beegman.buzzbee.web;
 

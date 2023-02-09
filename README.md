@@ -59,6 +59,20 @@ Add Buzzbee jar and js in env.xml
 
     <variable name="BUZZBEE_LIB" type="path">/home/dmitriy/projects/Buzzbee/build/buzzbee.jar</variable>
     <variable name="BUZZBEE_JS" type="path">/home/dmitriy/projects/Buzzbee/src/js/buzzbee.js</variable>
+    ....
+    <expression variable="CUSTOM CP">
+    	<operator name="append">
+		    <value variable="PATH SEPARATOR"/>
+		    <value variable="BUZZBEE_LIB"/>
+    .....
+   
+And then add js file in warit target of bee.xml:
+
+         <parameter>A js/</parameter>
+         <parameter type="path">src/js/*.js</parameter>
+         <parameter>A js/</parameter>
+         <parameter variable="BUZZBEE_JS" type="path"/>
+                
 
 ### Add the notification service to the app model
 
@@ -86,6 +100,18 @@ subscribing to notification events from a client, as a delivering notification e
 
 The code provided in [wsinit.js](https://github.com/drogatkin/sharelinks/blob/master/src/js/wsinit.js). The function
  **extra_actions** is defined here and gets called in the common initialization sequence. 
+ 
+### Add a notification code and a corresponding web page action
+ 
+When some event happens and a web page needs to be notified regarding it, the following coded needs to be added
+on the server side:
+
+     WebEvent we;
+	 ns.publish(we = new WebEvent().setAction("refreshList").setId(getProperties().getProperty(SharelinksModel.NOTIF_CHANNEL))); 
+	 
+See a complete source [here](https://github.com/drogatkin/sharelinks/blob/6fef116e4c67a55cb9baf06cb7f80548f72c47d7/src/java/com/walletwizz/sharelinks/ux/Sync.java).
+The action **refreshList*** has to be triggered on a web page side, therefore the function **refreshList** has to be added in 
+[js](https://github.com/drogatkin/sharelinks/blob/6fef116e4c67a55cb9baf06cb7f80548f72c47d7/src/js/wsinit.js#L13).
 
 If you follow the steps, the notification starts working instantly. 
 
