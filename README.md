@@ -85,6 +85,9 @@ subscribing to notification events from a client, as a delivering notification e
 ### Add custom js code in a common initialization code of a web page
 
 The code provided in [wsinit.js](https://github.com/drogatkin/sharelinks/blob/master/src/js/wsinit.js). The function
- **extra_actions** is defined here and gets called in common initialization sequence. 
+ **extra_actions** is defined here and gets called in the common initialization sequence. 
 
-If you follow the steps, the notification starts working instantly.    
+If you follow the steps, the notification starts working instantly. 
+
+
+Note that if you use another than WebBee framework, like React, Angular, Vue or other, then the steps can be slightly different, so check with the documentation of a particular framework.
