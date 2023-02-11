@@ -108,8 +108,20 @@ public class NotifEndPoint implements Subscriber {
 		public String encode(WebEvent arg0) throws EncodeException {
 			// TODO use JSON serialization
 			String result =
-			"{\"func\":\"" + arg0.action + "\", \"params\":" + Arrays.toString(arg0.attributes) + "}";
+			"{\"func\":\"" + arg0.action + "\", \"params\":[" + arrayToJson(arg0.attributes) + "]}";
 			//LogImpl.log.debug("JSON:%s", result);
+			return result;
+		}
+		
+		String arrayToJson(Object...arr) {
+			if (arr == null || arr.length == 0)
+				return "";
+			String result = "\""+arr[0].toString()+"\"";
+			for(int c=0; c< arr.length; c++) {
+				result +=",\"";
+			    result += arr[c].toString(); // TODO add json escape
+			    result += "\"";
+			}
 			return result;
 		}
 	}

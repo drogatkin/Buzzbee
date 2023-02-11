@@ -14,6 +14,17 @@ public interface NotificationService {
 	 *
 	 */
 	public static class NotifException extends Exception {
+		public NotifException() {
+			
+		}
+		
+		public NotifException(String description) {
+			super(description);
+		}
+		
+		public NotifException(String description, Throwable t) {
+			super(description, t);
+		}
 
 	}
 	/**

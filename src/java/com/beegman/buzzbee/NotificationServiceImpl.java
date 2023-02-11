@@ -397,14 +397,14 @@ public class NotificationServiceImpl extends MicroService<NotificationServiceImp
 				if (s.isAlive())
 					try {
 						if (isEligable(s, note)) { // TODO think if the check can be performed in notify()
-							//LogImpl.log.debug("Notifying %s at %s", s, note);
+							LogImpl.log.debug("Notifying %s at %s", s, note);
 							s.notify(note); 
 						}
 					} catch (Exception e) {
 						LogImpl.log.error(e, "notifying %s for %s", note, note.getResourceId());
 					}
 				else {
-					LogImpl.log.debug("Dead %s", s);
+					LogImpl.log.debug("Dead subscriber %s", s);
 					deads.add(s);
 				}
 			});
@@ -420,7 +420,7 @@ public class NotificationServiceImpl extends MicroService<NotificationServiceImp
 		}
 	}
 	
-	/** checks if subscriber is eligible to receive the notification in scope
+	/** checks if subscriber is eligible to receive the notification in the scope
 	 * of distribution
 	 * @param s - subscriber
 	 * @param note2 - notification message
@@ -536,7 +536,7 @@ public class NotificationServiceImpl extends MicroService<NotificationServiceImp
 	@Override
 	public String getPreferredServiceName() {
 		
-		return "NotifServer";
+		return "NotificationService";
 	}
 
 	@Override
