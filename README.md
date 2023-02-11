@@ -88,13 +88,33 @@ See [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2b
 [Endpoint](https://github.com/drogatkin/sharelinks/blob/master/src/java/com/walletwizz/sharelinks/ux/ws/UIRefresher.java) is used as for
 subscribing to notification events from a client, as a delivering notification events.
 
+Make sure that a web socket session is propagated to the endpoint underneath class which is used 
+as a subscriber. The session is used to figure out that the subscriber is alive, see
+
+     @OnMessage
+	 public void subscribe(String id, Session s, @PathParam("servName") String servName) {
+		LogImpl.log.debug("got message %s for %s from %s and notifserv %s", id, servName, s.getPathParameters(), ns);
+		ses = s;  // setting the session to the subscriber
+		.....
+		
+
 ### Add common js code in js section of common a web page code
 
     @%'insert/headextra.htmt'@
     <script src="@contextpath@/js/buzzbee.js" language="Javascript"></script>
     <script src="@contextpath@/js/wsinit.js" language="Javascript"></script>
     
-[source](https://github.com/drogatkin/sharelinks/blob/master/src/res/view/insert/headextra.html)
+Example [source](https://github.com/drogatkin/sharelinks/blob/master/src/res/view/insert/headextra.html)
+
+### Tell to the underneath framework to process the added js files
+It's done  in the configuration properties file as
+
+     app_name=Share Links
+
+     headextra=insert/headextra.html
+     .....
+    
+Example [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/res/cfg/sharelinks.properties#L37) 
 
 ### Add custom js code in a common initialization code of a web page
 
