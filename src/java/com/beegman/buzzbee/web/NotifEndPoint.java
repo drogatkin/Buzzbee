@@ -19,7 +19,7 @@ import org.aldan3.annot.Inject;
 
 import com.beegman.buzzbee.LogImpl;
 import com.beegman.buzzbee.NotificationServiceImpl;
-import com.beegman.buzzbee.NotificationServiceImpl.NotifException;
+import com.beegman.buzzbee.NotificationService.NotifException;
 import com.beegman.buzzbee.Subscriber;
 import com.beegman.buzzbee.UserAuth;
 import com.beegman.buzzbee.WebEvent;

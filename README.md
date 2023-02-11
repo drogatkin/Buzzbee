@@ -110,7 +110,7 @@ on the server side:
 	 ns.publish(we = new WebEvent().setAction("refreshList").setId(getProperties().getProperty(SharelinksModel.NOTIF_CHANNEL))); 
 	 
 See a complete source [here](https://github.com/drogatkin/sharelinks/blob/6fef116e4c67a55cb9baf06cb7f80548f72c47d7/src/java/com/walletwizz/sharelinks/ux/Sync.java).
-The action **refreshList*** has to be triggered on a web page side, therefore the function **refreshList** has to be added in 
+The action **refreshList** has to be triggered on a web page side, therefore the function **refreshList** has to be added in 
 [js](https://github.com/drogatkin/sharelinks/blob/6fef116e4c67a55cb9baf06cb7f80548f72c47d7/src/js/wsinit.js#L13).
 
 If you follow the steps, the notification starts working instantly. 

@@ -1,14 +1,21 @@
 /*
- *  Copyright D. Rogatkin 2017-2021
+ *  Copyright D. Rogatkin 2017-2023
  */
 /**
  *
  */
 package com.beegman.buzzbee;
 
-import com.beegman.buzzbee.NotificationServiceImpl.NotifException;
-
 public interface NotificationService {
+	/**
+	 * the service specific exception
+	 * 
+	 * @author Dmitriy
+	 *
+	 */
+	public static class NotifException extends Exception {
+
+	}
 	/**
 	 * publishes an event to subscribers who previously subscribed to the topic
 	 * 

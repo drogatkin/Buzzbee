@@ -1,5 +1,5 @@
 /*
- *  Copyright D. Rogatkin 2017-2021
+ *  Copyright D. Rogatkin 2017-2023
  */
 /**
  *
@@ -12,7 +12,7 @@ import java.util.Properties;
 import org.aldan3.annot.Inject;
 import org.aldan3.app.Registry;
 
-import com.beegman.buzzbee.NotificationServiceImpl.NotifException;
+import com.beegman.buzzbee.NotificationService.NotifException;
 
 
 /** This is stub created for forwarding publish event to other nodes without using notification service

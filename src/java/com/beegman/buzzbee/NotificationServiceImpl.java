@@ -7,6 +7,7 @@
 package com.beegman.buzzbee;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.aldan3.annot.Inject;
 import org.aldan3.app.Registry;
+import com.beegman.buzzbee.NotificationService.NotifException;
 
 /**
  * Base notification service, the following line can be added to config <br>
@@ -33,16 +35,6 @@ public class NotificationServiceImpl extends MicroService<NotificationServiceImp
 	Registry registry;
 	
 	Properties properties;
-	
-	/**
-	 * the service specific exception
-	 * 
-	 * @author Dmitriy
-	 *
-	 */
-	public static class NotifException extends Exception {
-
-	}
 
 	private LinkedHashMap<String, StampedHashSet<Subscriber>> subscribers;
 	private ThreadPoolExecutor executor;
