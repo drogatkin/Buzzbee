@@ -397,7 +397,7 @@ public class NotificationServiceImpl extends MicroService<NotificationServiceImp
 				if (s.isAlive())
 					try {
 						if (isEligable(s, note)) { // TODO think if the check can be performed in notify()
-							LogImpl.log.debug("Notifying %s at %s", s, note);
+							//LogImpl.log.debug("Notifying %s at %s", s, note);
 							s.notify(note); 
 						}
 					} catch (Exception e) {
