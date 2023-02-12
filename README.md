@@ -12,7 +12,7 @@ It allows to change a service implementation without touching the subscribers co
 ## Typical use
 
 A notification service has to be added in an application model or other common place
-to inialize services:
+to initialize services:
 
     import com.beegman.buzzbee.NotificationServiceImpl;
        ....
@@ -48,7 +48,7 @@ An event get published as;
 	......
 	
 The method gets calls from a notification service. A connection from the notification service to the endpoint happens
-at time of a subscribe.
+at time of subscription.
 
 ## Examples
 A good illustration of all steps required for using a notification servise and websocket can be found in
