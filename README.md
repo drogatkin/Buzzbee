@@ -114,7 +114,7 @@ It's done  in the configuration properties file as
      headextra=insert/headextra.html
      .....
     
-Example [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/res/cfg/sharelinks.properties#L37) 
+The example [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/res/cfg/sharelinks.properties#L37) 
 
 ### Add custom js code in a common initialization code of a web page
 

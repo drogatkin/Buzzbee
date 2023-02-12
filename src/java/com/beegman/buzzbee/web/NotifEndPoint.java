@@ -16,6 +16,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 
 import org.aldan3.annot.Inject;
+import org.aldan3.util.inet.HttpUtils;
 
 import com.beegman.buzzbee.LogImpl;
 import com.beegman.buzzbee.NotificationServiceImpl;
@@ -114,12 +115,13 @@ public class NotifEndPoint implements Subscriber {
 		}
 		
 		String arrayToJson(Object...arr) {
+			// StringBuilder
 			if (arr == null || arr.length == 0)
 				return "";
-			String result = "\""+arr[0].toString()+"\"";
+			String result = "\""+HttpUtils.toJSONString(arr[0].toString())+"\"";
 			for(int c=0; c< arr.length; c++) {
 				result +=",\"";
-			    result += arr[c].toString(); // TODO add json escape
+			    result += HttpUtils.toJSONString(arr[c].toString()); // TODO add json escape
 			    result += "\"";
 			}
 			return result;
