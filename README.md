@@ -5,14 +5,14 @@
 Sometimes a web application needs notifications about some events. Such events have to be delivered in
 a web page asynchronously to a user interaction. A perfect solution for that is using a websocket. However,
 using a websocket requires some additional coding. The project takes care as websocket work as a distribution of events.
-The solution is wrapped as a notification service utilizing a subscriber publisher model. A subscriber subscribes to certain type of events and then
-when a publisher publish such events, get a notification. The service itself is defined on a level of an interface.
-It allows to change a service implementation without touching the subscribers code.
+The solution is wrapped as a notification service utilizing a subscriber publisher model. A subscriber subscribes to a type of events of interest and then
+when a publisher publishes such events, it gets a notification. The service itself is defined on a level of an interface.
+It allows to change a service implementation without touching the subscriber's code.
 
 ## Typical use
 
 A notification service has to be added in an application model or other common place
-to initialize services:
+for initializing services:
 
     import com.beegman.buzzbee.NotificationServiceImpl;
        ....
@@ -24,7 +24,7 @@ to initialize services:
         .....
 	}
 
-Since it is required to be passed in a websocket endpoint, the service should be accessible from some  global variable.
+The service should be accessible from some  global variable, since it is required that the service to be passed to a websocket endpoint.
 A websocket endpoint looks like:
 
     @ServerEndpoint(value = "/notif/web", encoders = NotifEndPoint.WebEventEncoder.class)
@@ -35,12 +35,15 @@ A websocket endpoint looks like:
            ....
            appModel.notifService.subscribe(mes.id, this);
 
+Pay an attention to the address **/notif/web**, since it is used for establishing websocket 
+connection in js code. Obviously it can be changed, but in all places of a use. 
+
 On message handler receives messages from a client and allows, for example, to subscribe on a certain event.
 An event get published as;
 
      @Override
 	public void notify(WebEvent event) {
-		if (ses != null)
+		if (isAlive())
 			try {
 				
 				ses.getBasicRemote().sendObject(event);
@@ -66,7 +69,7 @@ Add Buzzbee jar and js in env.xml
 		    <value variable="BUZZBEE_LIB"/>
     .....
    
-And then add js file in warit target of bee.xml:
+And then add js file in the task **warit** of bee.xml:
 
          <parameter>A js/</parameter>
          <parameter type="path">src/js/*.js</parameter>
