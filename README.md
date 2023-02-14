@@ -103,7 +103,7 @@ as a subscriber. The session is used to figure out that the subscriber is alive,
 		.....
 		
 
-### Add common js code in js section of common a web page code
+### Add common js code to the js section of common a web page code
 
     @%'insert/headextra.htmt'@
     <script src="@contextpath@/js/buzzbee.js" language="Javascript"></script>
@@ -121,7 +121,7 @@ It's done  in the configuration properties file as
     
 The example [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/res/cfg/sharelinks.properties#L37) 
 
-### Add custom js code in a common initialization code of a web page
+### Add custom js code to the common initialization code of a web page
 
 The code provided in [wsinit.js](https://github.com/drogatkin/sharelinks/blob/master/src/js/wsinit.js). The function
  **extra_actions** is defined here and gets called in the common initialization sequence. 
