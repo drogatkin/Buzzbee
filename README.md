@@ -56,7 +56,7 @@ at time of subscription.
 ## Examples
 A good illustration of all steps required for using a notification servise and websocket can be found in
 [ShareLenks](https://github.com/drogatkin/sharelinks) project.
-Quick recap of all steps:
+Quick recap of the steps:
 ### Adding Buzzbee jar in a project
 Add Buzzbee jar and js in env.xml
 
@@ -78,6 +78,8 @@ And then add js file in the task **warit** of bee.xml:
                 
 
 ### Add the notification service to the app model
+It is added in the initServices section of the app model when WebBee is used. Or should be added in the initialization services
+section of another framework of your choice.
 
      @Override
 	protected void initServices() {
@@ -89,7 +91,7 @@ See [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2b
 
 ### Create endpoint
 [Endpoint](https://github.com/drogatkin/sharelinks/blob/master/src/java/com/walletwizz/sharelinks/ux/ws/UIRefresher.java) is used as for
-subscribing to notification events from a client, as a delivering notification events.
+subscribing to notification events from a client, and delivering notification events.
 
 Make sure that a web socket session is propagated to the endpoint underneath class which is used 
 as a subscriber. The session is used to figure out that the subscriber is alive, see
