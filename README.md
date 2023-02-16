@@ -109,7 +109,7 @@ as a subscriber. The session is used to figure out that the subscriber is alive,
     <script src="@contextpath@/js/buzzbee.js" language="Javascript"></script>
     <script src="@contextpath@/js/wsinit.js" language="Javascript"></script>
     
-Example [source](https://github.com/drogatkin/sharelinks/blob/master/src/res/view/insert/headextra.html)
+The example [source](https://github.com/drogatkin/sharelinks/blob/master/src/res/view/insert/headextra.html)
 
 ### Tell to the underneath framework to process the added js files
 It's done  in the configuration properties file as
@@ -128,7 +128,7 @@ The code provided in [wsinit.js](https://github.com/drogatkin/sharelinks/blob/ma
  
 ### Add a notification code and a corresponding web page action
  
-When some event happens and a web page needs to be notified regarding it, the following coded needs to be added
+When some event happens and a web page needs to be notified regarding it, the following code needs to be added
 on the server side:
 
      WebEvent we;
