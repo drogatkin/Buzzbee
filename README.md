@@ -54,7 +54,7 @@ The method gets calls from a notification service. A connection from the notific
 at time of subscription.
 
 ## Examples
-A good illustration of all steps required for using a notification servise and websocket can be found in
+A good illustration of all steps required for using a notification service and websocket can be found in
 [ShareLenks](https://github.com/drogatkin/sharelinks) project.
 Quick recap of the steps:
 ### Adding Buzzbee jar in a project
@@ -87,7 +87,7 @@ section of another framework of your choice.
 		register(notifService = new NotificationServiceImpl().init(new Properties(), this).start());
 	}
 	
-See [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/java/com/walletwizz/sharelinks/model/SharelinksModel.java#L63)
+See the [source](https://github.com/drogatkin/sharelinks/blob/69637f8ce176b682841d2bb6c1410f0d48650ccc/src/java/com/walletwizz/sharelinks/model/SharelinksModel.java#L63)
 
 ### Create endpoint
 [Endpoint](https://github.com/drogatkin/sharelinks/blob/master/src/java/com/walletwizz/sharelinks/ux/ws/UIRefresher.java) is used as for
