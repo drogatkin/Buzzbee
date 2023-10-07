@@ -5,9 +5,9 @@
 Sometimes a web application needs notifications about some events. Such events have to be delivered in
 a web page asynchronously to a user interaction. A perfect solution for that is using a websocket. However,
 using a websocket requires some additional coding. The project takes care as websocket work as a distribution of events.
-The solution is wrapped as a notification service utilizing a subscriber publisher model. A subscriber subscribes to a type of events of interest and then
+The solution is wrapped as a notification service utilizing a subscriber publisher model. A subscriber subscribes to a type of events of an interest and then
 when a publisher publishes such events, it gets a notification. The service itself is defined on a level of an interface.
-It allows to change a service implementation without touching the subscriber's code.
+It allows to change a service implementation without touching a subsriber's code.
 
 ## Typical use
 
@@ -38,20 +38,22 @@ A websocket endpoint looks like:
 Pay an attention to the address **/notif/web**, since it is used for establishing websocket 
 connection in js code. Obviously it can be changed, but in all places of a use. 
 
-On message handler receives messages from a client and allows, for example, to subscribe on a certain event.
-An event get published as;
+The on message handler receives messages from a client and allows, for example, to subscribe on a certain event.
+
+
+An event get published as:
 
      @Override
 	public void notify(WebEvent event) {
 		if (isAlive())
 			try {
-				
+				....
 				ses.getBasicRemote().sendObject(event);
 			} catch (Exception e) {
 	......
 	
 The method gets calls from a notification service. A connection from the notification service to the endpoint happens
-at time of subscription.
+at time of a subscribing.
 
 ## Examples
 A good illustration of all steps required for using a notification service and websocket can be found in

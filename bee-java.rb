@@ -13,7 +13,7 @@ main_class= "${domain}.${project}.Main"
 websocket jar=${~cwd~}/.temp_repo/javax.websocket-api-1.1.jar
 aldan3 jdo=/home/dmitriy/projects/aldan3-jdo/build/aldan3-jdo.jar
 aldan3=/home/dmitriy/projects/aldan3/build/aldan3.jar
-libs=[websocket jar,aldan3 jdo,aldan3]
+libs=[websocket jar  ,  aldan3 jdo,aldan3]
 
 target clean {
     dependency {true}
@@ -52,7 +52,7 @@ target compile:. {
        display(Compiling Java src ...)
        newerthan(${source_directory}/.java,${build_directory}/.class)
        assign(main src,~~)
-       display(sources ${main src} build ${build_directory})
+       #display(sources ${main src} build ${build_directory})
        array(libs,${build_directory})
        scalar(~~,~path_separator~)
        exec javac (
