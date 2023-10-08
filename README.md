@@ -39,9 +39,10 @@ Pay an attention to the address **/notif/web**, since it is used for establishin
 connection in js code. Obviously it can be changed, but in all places of a use. 
 
 The on message handler receives messages from a client and allows, for example, to subscribe on a certain event.
+A subscription can  also happen in OnOpen handler.
 
 
-An event get published as:
+Now, a client should get notifications on events. It can be done providing the following code:
 
      @Override
 	public void notify(WebEvent event) {
@@ -70,7 +71,16 @@ Add Buzzbee jar and js in env.xml
 		    <value variable="PATH SEPARATOR"/>
 		    <value variable="BUZZBEE_LIB"/>
     .....
-   
+  
+Unless the websocket library is already in the project, it needed to be added too:
+
+    <variable name="WEBSOCKET API" type="repo_artifact">maven:javax.websocket:javax.websocket-api:1.1</variable>
+    ....
+                    <value variable="PATH SEPARATOR"/>
+		    <value variable="WEBSOCKET API"/>
+
+
+ 
 And then add js file in the task **warit** of bee.xml:
 
          <parameter>A js/</parameter>
