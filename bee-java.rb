@@ -10,6 +10,8 @@ resources ="${domain}.${project}.resources"
 manifestf =""
 main_class= "${domain}.${project}.Main"
 
+include(..${~/~}rust_util${~/~}src${~/~}script${~/~}common-java.7b) 
+
 websocket jar=${~cwd~}/.temp_repo/javax.websocket-api-1.1.jar
 aldan3 jdo=/home/dmitriy/projects/aldan3-jdo/build/aldan3-jdo.jar
 aldan3=/home/dmitriy/projects/aldan3/build/aldan3.jar
@@ -58,6 +60,8 @@ target compile:. {
        exec javac (
          -d,
          ${build_directory},
+         -source,8,
+         -target,8,
         -cp,
          ${~~},
          main src
